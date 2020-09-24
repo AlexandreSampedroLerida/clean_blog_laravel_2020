@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// VIEW COMPOSERS ------------------------------------------------------
+  View::composer('pages._menu', function($view){
+  $view->with('pages', App\Models\Page::orderBy('tri', 'asc')->get()); //Page::all()
+  });
+
+
 // ROUTE DES PAGES -----------------------------------------------------
 use App\Http\Controllers\PagesController;
   Route::get('/', [PagesController::class, 'show'])->name('homepage');
