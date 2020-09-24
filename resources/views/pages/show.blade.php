@@ -29,7 +29,13 @@
           </div>
 
           {{-- Ici viennent les contenus complémentaires (posts, formulaire, ...) --}}
-
+          @if ($page->id === 1)
+              {{-- On va charger la vue index des posts --}}
+            @include('posts._index')
+              {{-- En lui balançant la liste des 10 derniers posts --}}
+          @elseif ($page->id === 3)
+            @include('template.partials._contact_form')
+          @endif
         </div>
       </div>
     </div>
