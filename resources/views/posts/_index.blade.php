@@ -23,6 +23,11 @@
       </h3>
     </a>
     <p class="post-meta">Posted on {{ $post->datePublication }} by {{ $post->author->firstname }} {{ $post->author->lastname }}</p>
+    <ul>
+      @foreach ($post->tags as $tag)
+        <li>{{ $tag->nom }}</li>
+      @endforeach
+    </ul>
   </div>
   <hr>
 
