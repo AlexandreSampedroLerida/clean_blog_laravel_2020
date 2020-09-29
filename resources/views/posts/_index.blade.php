@@ -1,7 +1,7 @@
 {{--
   ./resources/views/posts/_index.blade.php
   Variables disponibles:
-  $posts ARRAY(OBJ(id, titre, sousTitre, texte, datePublication, user))
+  $posts ARRAY(OBJ(id, titre, sousTitre, texte, datePublication, author_id, author OBJ(id, firstname, lastname, created_at)))
 --}}
 
 
@@ -22,7 +22,7 @@
         {{ $post->sousTitre }}
       </h3>
     </a>
-    <p class="post-meta">{{ $post->datePublication }}</p>
+    <p class="post-meta">Posted on {{ $post->datePublication }} by {{ $post->author->firstname }} {{ $post->author->lastname }}</p>
   </div>
   <hr>
 
