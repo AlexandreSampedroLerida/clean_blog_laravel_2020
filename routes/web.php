@@ -32,3 +32,12 @@ use App\Http\Controllers\PagesController;
     ])
     ->name('pages.show');
 //Route::resource('pages', PagesController::class)->only(['index', 'show']);
+
+// ROUTE DES POSTS -----------------------------------------------------
+use App\Http\Controllers\PostsController;
+ Route::get('/posts/{post}/{slug}', [PostsController::class, 'show'])
+    ->where([
+       'post' => '[1-9][0-9]*',
+       'slug' => '[a-z0-9][a-z0-9\-]*'
+     ])
+    ->name('posts.show');
