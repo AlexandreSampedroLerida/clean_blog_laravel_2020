@@ -37,6 +37,9 @@
             @include('template.partials._contact_form')
           @endif
         </div>
+        <div class="col-lg-4 col-md-2">
+          @include('tags._index')
+        </div>
       </div>
     </div>
   @endsection

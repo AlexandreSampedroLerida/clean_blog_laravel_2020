@@ -1,7 +1,7 @@
 {{--
   ./app/resources/views/posts/show.blade.@php
   Variable disponible:
-      $post OBJ(id, titre, sousTitre, texte, datePublication, author_id, author OBJ)
+      $post OBJ(id, titre, sousTitre, texte, datePublication, author_id, author OBJ, tags OBJ(tags))
 
 --}}
 
@@ -16,12 +16,15 @@
             <div class="post-heading">
               <h1>{{$post->titre}}</h1>
               <h2 class="subheading">{{$post->sousTitre}}</h2>
-              <span class="meta">{{$post->datePublication}} by {{$post->author->firstname}} {{$post->author->lastname}}</span>
+              <span class="meta">
+                Posted on {{$post->datePublication}}
+                by {{$post->author->firstname}} {{$post->author->lastname}} ({{count($post->author->posts)}})
+              </span>
               <ul>
                 @foreach ($post->tags as $tag)
-                  <li>{{ $tag->nom }}</li>
+                  <li>{{ $tag->nom }} - {{count($tag->posts)}}</li>
                 @endforeach
-              </ul>              
+              </ul>
             </div>
           </div>
         </div>
@@ -43,13 +46,20 @@
             <!-- POST DETAILS -->
               {{ $post->texte }}
               <hr/>
-              <h2>Posts du même auteur</h2>
+              <h2>Posts du même auteur - {{count($post->author->posts)}}</h2>
               <ul>
                 @foreach ($post->author->posts as $postAuthor)
 
                   @if ($postAuthor->id !== $post->id)
 
-                    <li>{{$postAuthor->titre}}</li>
+                    <li>
+                      {{$postAuthor->titre}}
+                      {{-- Les tags du postAuthor --}}
+                    @foreach ($postAuthor->tags as $tag)
+                      [{{ $tag->nom }} - {{ count($tag->posts) }}]
+                    @endforeach
+
+                    </li>
 
                   @endif
 

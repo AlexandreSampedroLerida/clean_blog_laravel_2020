@@ -22,12 +22,16 @@ use Illuminate\Support\Facades\Route;
   $view->with('posts', App\Models\Post::orderBy('datePublication', 'desc')->take(10)->get());
   });
 
+  View::composer('tags._index', function($view){
+  $view->with('tags', App\Models\Tag::orderBy('nom', 'asc')->get());
+  });
+
 // ROUTE DES PAGES -----------------------------------------------------
 use App\Http\Controllers\PagesController;
   Route::get('/', [PagesController::class, 'show'])->name('homepage');
   Route::get('pages/{id}/{slug}', [PagesController::class, 'show'])
     ->where([
-      'id' => '[1-9][0-9]*',
+      'id'   => '[1-9][0-9]*',
       'slug' => '[a-z0-9][a-z0-9\-]*'
     ])
     ->name('pages.show');
@@ -41,3 +45,13 @@ use App\Http\Controllers\PostsController;
        'slug' => '[a-z0-9][a-z0-9\-]*'
      ])
     ->name('posts.show');
+
+
+// ROUTE DES TAGS -----------------------------------------------------
+use App\Http\Controllers\TagsController;
+ Route::get('/tags/{tag}/{slug}', [TagsController::class, 'show'])
+  ->where([
+    'tag'   => '[1-9][0-9]*',
+    'slug' => '[a-z0-9][a-z0-9\-]*'
+  ])
+  ->name('tags.show');
